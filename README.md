@@ -23,12 +23,19 @@ Topo Map is an OpenStreetMap app for KaiOS devices. It's a fork of osm-map with 
 ![topo2](/topo2.png)
 
 ### How to install
-Automatic installation: Go to KaiOS store and search for Topo.
+Automatic installation: Go to KaiOS store or (Bhackers store)[https://store.bananahackers.net/] and search for Topo.
 
+#### Web DIE
 Manual installation: Use adb and Firefox 59 WebIDE. Debug mode in Nokia KaiOS phones can be entered by typing ```*#*#33284#*#*```
+
+Download WebIDe binaries from (original page)[https://github.com/GP4Flo/Topo-Map/releases]
 
 See the following page for more details:
 https://developer.kaiostech.com/getting-started/env-setup/os-env-setup
+
+#### Omni SD
+- Download OmniSD binaries from (releases page)[]
+- install with OmniSD
 
 ### Thank you
 + strukturart https://github.com/strukturart/osm-map
