@@ -1,6 +1,6 @@
 ![logo](application/icons/icon-112-112.png) 
 
-Version 1.0.4 by Florian Jesse</br></br>
+OmniSD/Bhackers store clone of (Florian Jesse)[https://github.com/GP4Flo/Topo-Map]</br></br>
 Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM</br>Imagery © <a href="https://opentopomap.org/">OpenTopoMap</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/">(CC-BY-SA)</a></br></br>
 
 Topo Map is an OpenStreetMap app for KaiOS devices. It's a fork of osm-map with the aim of better usability and smaller filesize.  It uses OpenTopoMap with hill shading and contour lines. This app is a good companion for your outdoor activities like hiking, cycling, mountain biking, horseback riding, etc.
