@@ -1,6 +1,6 @@
 ![logo](application/icons/icon-112-112.png) 
 
-OmniSD/Bhackers store clone of Florian Jesse's (topo map)[https://github.com/GP4Flo/Topo-Map]</br></br>
+OmniSD/Bhackers store clone of Florian Jesse's [topo map](https://github.com/GP4Flo/Topo-Map)</br></br>
 Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM</br>Imagery © <a href="https://opentopomap.org/">OpenTopoMap</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/">(CC-BY-SA)</a></br></br>
 
 Topo Map is an OpenStreetMap app for KaiOS devices. It's a fork of osm-map with the aim of better usability and smaller filesize.  It uses OpenTopoMap with hill shading and contour lines. This app is a good companion for your outdoor activities like hiking, cycling, mountain biking, horseback riding, etc.
@@ -23,12 +23,12 @@ Topo Map is an OpenStreetMap app for KaiOS devices. It's a fork of osm-map with 
 ![topo2](/topo2.png)
 
 ### How to install
-Automatic installation: Go to KaiOS store or (Bhackers store)[https://store.bananahackers.net/] and search for Topo.
+Automatic installation: Go to KaiOS store or [Bhackers store](https://store.bananahackers.net/) and search for Topo.
 
 #### Web DIE
 Manual installation: Use adb and Firefox 59 WebIDE. Debug mode in Nokia KaiOS phones can be entered by typing ```*#*#33284#*#*```
 
-Download WebIDe binaries from (original page)[https://github.com/GP4Flo/Topo-Map/releases]
+Download WebIDe binaries from [original page](https://github.com/GP4Flo/Topo-Map/releases)
 
 See the following page for more details:
 https://developer.kaiostech.com/getting-started/env-setup/os-env-setup
