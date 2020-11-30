@@ -6,11 +6,16 @@ let current_lat = 0;
 let current_alt;
 let current_heading;
 
-let zoom_level;
+let zoom_level = 14;
+let current_zoom_level = 14;
 let myMarker = "";
 let windowOpen = "map";
 
 let tilesLayer;
+let overlay;
+let overlayshading;
+let overlayon = false;
+let hillshadingon = false;
 let tilesUrl;
 
 let map;
@@ -24,7 +29,7 @@ getKaiAd({
     app: 'Topo Map',
     slot: 'About',
     test: 0,
-    h: 223,
+    h: 152,
     w: 238,
     container: document.getElementById('ad-container'),
     onerror: err => console.error('Custom catch:', err),
@@ -37,16 +42,13 @@ getKaiAd({
     }
 });
 
-    //welcome message
-    $('div#message div').text("Welcome to Topo Map!");
     setTimeout(function() {
-        $('div#message').css("display", "none")
         //get location
         getLocation("init");
         ///set default map
         opentopo_map();
         windowOpen = "map";
-    }, 2000);
+    }, 0);
 
     //leaflet add basic map
     map = L.map('map-container', {
@@ -55,7 +57,6 @@ getKaiAd({
         keyboard: true
     }).fitWorld();
     L.control.scale({ position: 'topright', metric: true, imperial: false }).addTo(map);
-
   
     ////////////////////
     ////MAPS////////////
@@ -65,10 +66,117 @@ getKaiAd({
         tilesUrl = 'https://tile.opentopomap.org/{z}/{x}/{y}.png'
         tilesLayer = L.tileLayer.fallback(tilesUrl, {
             maxZoom: 17,
-            attribution: 'Map data © OpenStreetMap contributors, SRTM<div>Imagery: © OpenTopoMap (CC-BY-SA)</div>'
+            attribution: 'Map data © OpenStreetMap contributors, SRTM, Imagery: © OpenTopoMap (CC-BY-SA)'
         });
         map.addLayer(tilesLayer);
-        ZoomMap("in")
+    }
+
+    function hikebike_map() {
+        tilesUrl = 'https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png'
+        tilesLayer = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Map data © OpenStreetMap contributors, Imagery: © HikeBike Map'
+        });
+        map.addLayer(tilesLayer);
+    }
+
+    function worldimagery_map() {
+        tilesUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+        tilesLayer = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+        map.addLayer(tilesLayer);
+    }
+
+    function hillshading() {
+        tilesUrl = 'https://tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png'
+        overlayshading = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Hillshading: SRTM3 v2 (NASA) hosted by Wikimedia Labs'
+        });
+        map.addLayer(overlayshading);
+        hillshadingon = true;
+    }
+
+    function hiking_map() {
+        tilesUrl = 'http://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png'
+        overlay = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Hiking trails: &copy; waymarkedtrails.org (CC-BY-SA)'
+        });
+        map.addLayer(overlay);
+        overlayon = true;
+    }
+
+    function cycling_map() {
+        tilesUrl = 'http://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png'
+        overlay = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Cycling routes: &copy; waymarkedtrails.org (CC-BY-SA)'
+        });
+        map.addLayer(overlay);
+        overlayon = true;
+    }
+
+    function mtb_map() {
+        tilesUrl = 'http://tile.waymarkedtrails.org/mtb/{z}/{x}/{y}.png'
+        overlay = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Mountainbike routes: &copy; waymarkedtrails.org (CC-BY-SA)'
+        });
+        map.addLayer(overlay);
+        overlayon = true;
+    }
+
+    function slopes_map() {
+        tilesUrl = 'http://tile.waymarkedtrails.org/slopes/{z}/{x}/{y}.png'
+        overlay = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Skiing slopes: &copy; waymarkedtrails.org (CC-BY-SA)'
+        });
+        map.addLayer(overlay);
+        overlayon = true;
+    }
+
+    function riding_map() {
+        tilesUrl = 'http://tile.waymarkedtrails.org/riding/{z}/{x}/{y}.png'
+        overlay = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Horse riding: &copy; waymarkedtrails.org (CC-BY-SA)'
+        });
+        map.addLayer(overlay);
+        overlayon = true;
+    }
+
+    function skating_map() {
+        tilesUrl = 'http://tile.waymarkedtrails.org/skating/{z}/{x}/{y}.png'
+        overlay = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Inline-Skating: &copy; waymarkedtrails.org (CC-BY-SA)'
+        });
+        map.addLayer(overlay);
+        overlayon = true;
+    }
+
+    function rain() {
+        tilesUrl = 'http://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=99d2594c090c1ee9a8ad525fd7a83f85'
+        overlay = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Rain &copy; OpenWeather'
+        });
+        map.addLayer(overlay);
+        overlayon = true;
+    }
+
+    function clouds() {
+        tilesUrl = 'http://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=99d2594c090c1ee9a8ad525fd7a83f85'
+        overlay = L.tileLayer.fallback(tilesUrl, {
+            maxZoom: 19,
+            attribution: 'Clouds &copy; OpenWeather'
+        });
+        map.addLayer(overlay);
+        overlayon = true;
     }
 
     ////////////////////
@@ -81,7 +189,7 @@ getKaiAd({
     function getLocation(option) {
         marker_latlng = false;
         if (option == "init") {
-            toaster("Seeking Position. Press the center key to open the menu, d-pad to navigate the map and left/right keys to zoom.", 10000);
+            toaster("Seeking Position. Press the center key to open the menu.", 10000);
             let options = {
                 enableHighAccuracy: false,
                 timeout: 15000,
@@ -106,14 +214,13 @@ getKaiAd({
             current_heading = crd.heading;
             if (option == "init") {
                 myMarker = L.marker([current_lat, current_lng]).addTo(map);
-                $('div#message div').text("");
-                map.flyTo(new L.LatLng(current_lat, current_lng), 13);
+                map.flyTo(new L.LatLng(current_lat, current_lng), 14, {animate: false});
                 zoom_speed();
                 return false;
             }
             if (option == "update_marker" && current_lat != "") {
                 myMarker.setLatLng([current_lat, current_lng]).update();
-                map.flyTo(new L.LatLng(current_lat, current_lng));
+                map.panTo(new L.LatLng(current_lat, current_lng), {animate: false});
             }
         }
         function error(err) {
@@ -325,6 +432,90 @@ getKaiAd({
 
     function shortpress_action(param) {
         switch (param.key) {
+            case '1':
+                map.removeLayer(tilesLayer)
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                if (hillshadingon) {
+                    map.removeLayer(overlayshading)
+                }
+                opentopo_map();
+                break;
+            case '2':
+                map.removeLayer(tilesLayer)
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                if (hillshadingon) {
+                    map.removeLayer(overlayshading)
+                }
+                hikebike_map();
+                hillshading();
+                break;
+            case '3':
+                map.removeLayer(tilesLayer)
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                if (hillshadingon) {
+                    map.removeLayer(overlayshading)
+                }
+                worldimagery_map();
+                break;
+            case '4':
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                hiking_map();
+                break;
+            case '5':
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                cycling_map();
+                break;
+            case '6':  
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                mtb_map();
+                break;
+            case '7':
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                slopes_map();
+                break;
+            case '8':
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                riding_map();
+                break;
+            case '9':
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                skating_map();
+                break;
+            case '0':
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                break;
+            case '*':
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                clouds();
+                break;
+            case '#':
+                if (overlayon) {
+                    map.removeLayer(overlay)
+                }
+                rain();
+                break;
             case 'EndCall':
                 window.close();
                 break;
@@ -455,5 +646,55 @@ getKaiAd({
 
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
+
+    function toaster(text, time) {
+        $("div#toast").html("<div>" + text + "</div>")
+        $("div#toast").animate({ top: "0px" }, 1000, "linear", function() {
+            $("div#toast").delay(3000).animate({ top: "-100px" }, time);
+        });
+    }
+    
+    //bottom bar
+    function bottom_bar(left, center, right) {
+        $("div#bottom-bar div#button-left").text(left)
+        $("div#bottom-bar div#button-center").text(center)
+        $("div#bottom-bar div#button-right").text(right)
+    }
+
+    //search
+    var ac_selected_station = $('#search').autocomplete({
+        serviceUrl: "https://nominatim.openstreetmap.org/search?format=json&limit=12",
+        minChars: 2,
+        showNoSuggestionNotice: true,
+        paramName: 'q',
+        lookupLimit: 12,
+        deferRequestBy: 1000,
+        transformResult: function(response) {
+            console.log(response);
+            var obj = $.parseJSON(response);
+            return {
+                suggestions: $.map(obj, function(dataItem) {
+                    return { value: dataItem.display_name, data_lat: dataItem.lat, data_lon: dataItem.lon };
+
+                })
+            }
+        },
+        onSearchStart: function() {},
+        onSearchError: function(query, jqXHR, textStatus, errorThrown) {
+            toaster(JSON.stringify(jqXHR), 2000)
+        },
+        onSelect: function(suggestion) {
+            let lat_lon = [suggestion.data_lat, suggestion.data_lon];
+            addMarker(lat_lon[0], lat_lon[1])
+        }
+    })
+
+    //add marker
+    function addMarker(lat, lng) {
+        L.marker([lat, lng]).addTo(map);
+        map.setView([lat, lng], 14);
+        current_lat = Number(lat);
+        current_lng = Number(lng);
+    }
 
 });
